@@ -1,0 +1,13 @@
+FROM node:16-alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+
+# despite we are using the docker volume (mapping to local files), it is better to leave this for reference
+COPY . .
+
+CMD ["npm", "run", "start"]
